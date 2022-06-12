@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARC - PATH - SVG</title>
+  <style>
+    body {
+      margin: 0;
+      --secondary: #aaa;
+      --primary: #f4072e;
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 256px 2fr;
+
+      width: 100vw;
+      height: 100vh;
+      margin: auto;
+    }
+    .app-control {
+      border-right: 3px solid var(--secondary);
+      padding: 1rem;
+      overflow-y: auto;
+    }
+    .svg-wrapper {
+      margin: auto;
+    }
+    .form-item {
+      margin-bottom: .5rem;
+    }
+    .form-item label {
+      display: block;
+    }
+    hr {
+      border: none;
+      border-bottom: 2px solid var(--secondary);
+      margin: 1rem 0;
+    }
+
+    .text-muted {
+      color: var(--secondary);
+    }
+    .text-primary {
+      color: var(--primary);
+      font-weight: bold;
+    }
+    .arc {
+      stroke: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="app-control">
+      <div class="form-item">
+        <label for="sx">
+          <code class="text-muted">sx</code>
+          <code data-text="sx">0</code>
+        </label>
+        <input type="range" id="sx" name="sx" min="0" max="800" step="20" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="sy">
+          <code class="text-muted">sy</code>
+          <code data-text="sy">0</code>
+        </label>
+        <input type="range" id="sy" name="sy" min="0" max="800" step="20" value="0" />
+      </div>
+
+      <hr>
+
+      <div class="form-item">
+        <label for="a">
+          <code class="text-muted">A or a</code>
+          <code class="text-primary" data-text="a">A</code>
+        </label>
+        <input type="range" id="a" name="a" min="0" max="1" step="1" value="0" data-map=" a => (+a===1) ? 'a' : 'A' " />
+      </div>
+
+      <div class="form-item">
+        <label for="rx">
+          <code class="text-muted">rx</code>
+          <code class="text-primary" data-text="rx">0</code>
+        </label>
+        <input type="range" id="rx" name="rx" min="10" max="800" step="10" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="ry">
+          <code class="text-muted">ry</code>
+          <code class="text-primary" data-text="ry">0</code>
+        </label>
+        <input type="range" id="ry" name="ry" min="10" max="800" step="10" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="s0">
+          <code class="text-muted">x-axis-rotation</code>
+          <code class="text-primary" data-text="s0">0</code>
+        </label>
+        <input type="range" id="s0" name="s0" min="0" max="360" step="5" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="s1">
+          <code class="text-muted">large-arc-flag</code>
+          <code class="text-primary" data-text="s1">0</code>
+        </label>
+        <input type="range" id="s1" name="s1" min="0" max="1" step="1" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="s2">
+          <code class="text-muted">sweep-flag</code>
+          <code class="text-primary" data-text="s2">0</code>
+        </label>
+        <input type="range" id="s2" name="s2" min="0" max="1" step="1" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="x">
+          <code class="text-muted">x or dx</code>
+          <code class="text-primary" data-text="x">0</code>
+        </label>
+        <input type="range" id="x" name="x" min="0" max="800" step="20" value="0" />
+      </div>
+
+      <div class="form-item">
+        <label for="y">
+          <code class="text-muted">y or dy</code>
+          <code class="text-primary" data-text="y">0</code>
+        </label>
+        <input type="range" id="y" name="y" min="0" max="800" step="20" value="0" />
+      </div>
+
+      <div class="form-item">
+<pre class="text-muted">
+&lt;path d="
+  M <span data-text="sx"></span> <span data-text="sy"></span>
+  <span class="text-primary"><span data-text="a"></span> <span data-text="rx"></span> <span data-text="ry"></span> <span data-text="s0"></span> <span data-text="s1"></span> <span data-text="s2"></span> <span data-text="x"></span> <span data-text="y"></span></span>"
+  stroke="#f4072e"
+  stroke-width="<span data-text="sw"></span>"
+/&gt;
+</pre>
+      </div>
+
+      <hr>
+
+      <div class="form-item">
+        <label for="sw">
+          <code class="text-muted">stroke-width</code>
+          <code data-text="sw">0</code>
+        </label>
+        <input type="range" id="sw" name="sw" min="1" max="100" step="1" value="1" />
+      </div>
+    </div>
+    <div class="svg-wrapper">
+      <svg version="1.1" width="800" height="800" xmlns="http://www.w3.org/2000/svg" id="svg">
+        <defs>
+          <pattern id="bg" width="40" height="40" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="20" height="20" fill="#fff" />
+            <rect x="20" y="20" width="20" height="20" fill="#fff" />
+            <rect x="20" y="0" width="20" height="20" fill="#dddddf" />
+            <rect x="0" y="20" width="20" height="20" fill="#dddddf" />
+           </pattern>
+        </defs>
+        <rect x="0" y="0" width="100%" height="100%" fill="url(#bg)" stroke="#aaa" stroke-width="4" />
+        <path d="M 0 400 h 800" stroke="#aaa" stroke-width="1" fill="none" />
+        <path d="M 400 0 v 800" stroke="#aaa" stroke-width="1" fill="none" />
+
+        <!-- arc bg -->
+        <path id="arc1" d="M 400 400" stroke="#aaa" stroke-dasharray="4,4" stroke-width="3" fill="#fff" fill-opacity=".5" />
+
+        <!-- arc -->
+        <path id="arc" d="M 400 400" class="arc" stroke-width="3" fill="none" />
+
+        <!-- FROM -->
+        <g fill="#aaa">
+          <circle id="p0" cx="0" cy="0" r="4" />
+          <text id="p0t" x="100" y="100" font-size="20" font-family="monospace">(100, 100)</text>
+        </g>
+        <!-- TO -->
+        <g fill="#333">
+          <circle id="p1" cx="0" cy="0" r="4" />
+          <text id="p1t" x="100" y="100" font-size="20" font-family="monospace">(100, 100)</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <script>
+  (function() {
+    const svg = document.getElementById('svg');
+    const arc1 = document.getElementById('arc1');
+    const arc = document.getElementById('arc');
+    const p0 = document.getElementById('p0');
+    const p1 = document.getElementById('p1');
+    const p0t = document.getElementById('p0t');
+    const p1t = document.getElementById('p1t');
+    const s2 = document.getElementById('s2');
+    const sw = document.getElementById('s2');
+    const app = {
+      svg, arc, arc1, p0, p0t, p1, p1t,
+
+      rx: 200,
+      ry: 200,
+      x: 300,
+      y: 200,
+      sx: 400,
+      sy: 400,
+      s2: 0,
+      s1: 0,
+      s0: 0,
+      sw: 5,
+      a: 'A',
+
+      listen() {
+        document.querySelectorAll('[name]').forEach(el => {
+          const field = el.getAttribute('name');
+          const mapFn = el.hasAttribute('data-map') ? eval(el.getAttribute('data-map')) : a => +a;
+          el.addEventListener('input', () => {
+            this[field] = mapFn(+el.value);
+            document.querySelectorAll(`[data-text="${field}"]`).forEach(txt => {
+              txt.textContent = this[field];
+            });
+            this.draw();
+          });
+        });
+      },
+      draw() {
+        const { a, sx, sy, rx, ry, x, y, s0, s1, s2, sw } = this;
+        const arcCMD = `${a} ${rx} ${ry} ${s0} ${s1} ${s2} ${x} ${y}`;
+        const d = `M ${sx} ${sy} ${arcCMD}`;
+
+        console.log(d);
+
+        this.arc.setAttribute('stroke-width', sw);
+        this.arc.setAttribute('d', d);
+
+        const s1a = s1 === 0 ? 1 : 0;
+        const x1a = a === 'A' ? x : -x;
+        const y1a = a === 'A' ? y : -y;
+        this.arc1.setAttribute('d', [
+          'M', sx, sy,
+          a, rx, ry, s0, s1, s2, x, y,
+          'A', rx, ry, s0, s1a, s2, sx, sy,
+          'Z',
+        ].join(' '));
+
+        this.p0.setAttribute('cx', sx);
+        this.p0.setAttribute('cy', sy);
+        this.p0t.textContent = `(${sx},${sy})`;
+        this.p0t.setAttribute('x', sx);
+        this.p0t.setAttribute('y', sy);
+
+        const p1x = a === 'A' ? x : sx + x;
+        const p1y = a === 'A' ? y : sy + y;
+        this.p1.setAttribute('cx', p1x);
+        this.p1.setAttribute('cy', p1y);
+        this.p1t.textContent = `(${p1x},${p1y})`;
+        this.p1t.setAttribute('x', p1x);
+        this.p1t.setAttribute('y', p1y);
+      },
+      reset() {
+        this.sx = 400;
+        this.sy = 400;
+        this.x = 300;
+        this.y = 200;
+        this.rx = 150;
+        this.ry = 200;
+        this.s0 = 45;
+        this.s1 = 0;
+        this.s2 = 1;
+        this.a = 0;
+
+        document.querySelectorAll('[name]').forEach(el => {
+          const field = el.getAttribute('name');
+          const mapFn = el.hasAttribute('data-map') ? eval(el.getAttribute('data-map')) : a => +a;
+          el.value = this[field];
+          this[field] = mapFn(el.value);
+          document.querySelectorAll(`[data-text="${field}"]`).forEach(txt => {
+            console.log(field, el.value, mapFn, mapFn(el.value));
+            txt.textContent = this[field];
+          });
+        });
+      },
+      init() {
+        this.reset();
+        this.listen();
+        this.draw();
+      },
+    };
+    app.init();
+  })();
+  </script>
+</body>
+</html>
