@@ -1,0 +1,32 @@
+<svg version="2.0" width="2000" height="2000" viewBox="0,0,256,256" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    #tile {
+      fill: #faeee6;
+      stroke: #9b5036;
+      stroke-width: 6;
+    }
+  </style>
+  <defs>
+    <path id="jigsaw" d="M 0 0 h 35
+      a 20 20 0 1 1 30 0
+      h 35 v 35
+      a 20 20 0 1 0 0 30
+      v 35 h -35
+      a 20 20 0 1 1 -30 0
+      h -35 v -35
+      a 20 20 0 1 0 0 -30
+      Z
+    "/>
+    <rect id="jigsaw_fix" width="100" height="100" stroke="none"/>
+    <pattern id="tile" width="128" height="128" viewBox="0,0,200,200" patternUnits="userSpaceOnUse">
+      <g id="tile" fill="#f5f1f2" stroke="#ed1e4f" stroke-width="3">
+        <rect width="150%" height="150%" x="-25%" y="-25%" storke="none"/>
+        <use class="tile-a" href="#jigsaw" x="0" y="0"/>
+        <use class="tile-a" href="#jigsaw" x="100" y="100"/>
+        <use class="tile-b" href="#jigsaw" x="100" y="0" transform="rotate(90,150,50)"/>
+        <use class="tile-b" href="#jigsaw" x="0" y="100" transform="rotate(90,50,150)"/>
+      </g>
+    </pattern>
+  </defs>
+  <rect width="200%" height="200%" x="-50%" y="-50%" transform="rotate(-45,128,128)" fill="url(#tile)"/>
+</svg>
